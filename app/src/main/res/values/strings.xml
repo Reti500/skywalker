@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SkyWalker</string>
+
+    <!-- API KEYS -->
+    <string name="google_maps_key">AIzaSyDHY4Qs9xKCWqavjz58F_nZkyRNs8p-QqI</string>
 </resources>
