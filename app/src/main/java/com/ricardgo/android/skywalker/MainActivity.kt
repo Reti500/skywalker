@@ -2,6 +2,7 @@ package com.ricardgo.android.skywalker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         // Observers
         viewModel.getViewState().observe(this, Observer { changeFragment(it) })
+
+        val l = viewModel.route.all().value ?: listOf()
+        Log.e("Route", "$l")
     }
 
     private fun changeFragment(state: MainViewModel.MainViewState) {
