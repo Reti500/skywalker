@@ -5,4 +5,5 @@
     <string name="google_maps_key">AIzaSyDHY4Qs9xKCWqavjz58F_nZkyRNs8p-QqI</string>
     <string name="start_route">Iniciar ruta</string>
     <string name="stop_route">Terminar ruta</string>
+    <string name="need_location_permission">Necesitas aceptar el permiso para poder usar tu GPS.</string>
 </resources>

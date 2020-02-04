@@ -1,6 +1,5 @@
 package com.ricardgo.android.skywalker.ui.main
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +16,6 @@ class MainViewModel : ViewModel() {
 
     init {
         goToMap()
-        recordign.value = false
     }
 
     fun getViewState(): LiveData<MainViewState> = viewState
@@ -28,12 +26,6 @@ class MainViewModel : ViewModel() {
     }
 
     fun recordingAction(v: View) {
-        if (recordign.value == true) {
-            // Is recording, stop and save route
-            recordign.value = false
-        } else {
-            // Is not recording, start to capture route
-            recordign.value = true
-        }
+        recordign.value = recordign.value != true
     }
 }
