@@ -14,22 +14,23 @@ class MainViewModel : ViewModel() {
     }
 
     private var viewState = MutableLiveData<MainViewState>()
-    private var recordign = MutableLiveData<Boolean>()
+    private var recording = MutableLiveData<Boolean>()
 
     var route = Route(WalkerApplication.applicationContext())
 
     init {
         goToMap()
+        recording.value = false
     }
 
     fun getViewState(): LiveData<MainViewState> = viewState
-    fun getRecordingState(): LiveData<Boolean> = recordign
+    fun getRecordingState(): LiveData<Boolean> = recording
 
     fun goToMap() {
         viewState.value = MainViewState.MAP
     }
 
     fun recordingAction(v: View) {
-        recordign.value = recordign.value != true
+        recording.value = recording.value != true
     }
 }

@@ -17,6 +17,7 @@ class LocationService : Service(), LocationListener {
 
     companion object {
         const val routeIdExtra = "routeId"
+        const val receiver = "com.ricardgo.android.skywalker.WalkerApplication.service.receiver"
     }
 
     private val locationInterval = 500L
@@ -31,7 +32,8 @@ class LocationService : Service(), LocationListener {
         super.onCreate()
 
         handler = Handler()
-        trackLocation()
+        getLocation()
+        //trackLocation()
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -41,7 +43,12 @@ class LocationService : Service(), LocationListener {
     }
 
     override fun onLocationChanged(l: Location?) {
-        Log.e(TAG, "Location change: lat:${l?.latitude}, lng:${l?.longitude}")
+        //Log.e(TAG, "Location change: lat:${l?.latitude}, lng:${l?.longitude}")
+
+        sendBroadcast(Intent(receiver).apply {
+            putExtra("latutide","${l?.latitude}")
+            putExtra("longitude","${l?.longitude}")
+        })
     }
 
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
@@ -56,10 +63,17 @@ class LocationService : Service(), LocationListener {
         Log.e(TAG, "ON provider disabled")
     }
 
+    @SuppressLint("MissingPermission")
     private fun trackLocation() {
         handler?.postDelayed({
 
-            getLocation()
+            //getLocation()
+            lManager?.also { manager ->
+                location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                location?.also { l ->
+                    Log.e(TAG, "Location: lat:${l.latitude}, lng:${l.longitude}")
+                }
+            }
 
             if (WalkerApplication.prefs.trackLocation) {
                 trackLocation()
@@ -88,12 +102,12 @@ class LocationService : Service(), LocationListener {
         Log.e(TAG, "Reques from GPS")
         location = null
         lManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, locationInterval, 0.0f, this)
-        lManager?.also {
+        /*lManager?.also {
             location = it.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             location?.also { l ->
                 Log.e(TAG, "Location: lat:${l.latitude}, lng:${l.longitude}")
             }
-        }
+        }*/
     }
 
     private fun requestFromNetwork() {

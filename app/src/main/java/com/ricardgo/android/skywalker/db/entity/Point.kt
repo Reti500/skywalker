@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 
 data class Point (
     @ColumnInfo(name = "latitude")
-    val latitude: Double,
+    var latitude: Double,
 
     @ColumnInfo(name = "longitude")
-    val longitude: Double
+    var longitude: Double
 )
